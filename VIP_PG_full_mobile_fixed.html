@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>VIP PG — Warm & Comfortable Living</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#e6a500;
+    --muted:#6b6b6b;
+    --card:#ffffff;
+    --bg:#fbf8f3;
+    --glass: rgba(255,255,255,0.6);
+  }
+  *{box-sizing:border-box}
+  body{font-family:'Inter',system-ui,Arial,sans-serif;background:var(--bg);margin:0;color:#222;line-height:1.45}
+  header{background:linear-gradient(90deg,#fff8ec, #fff2d9);border-bottom:1px solid rgba(0,0,0,0.04)}
+  .wrap{max-width:1100px;margin:0 auto;padding:24px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ffca66);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;box-shadow:0 6px 18px rgba(230,165,0,0.18)}
+  nav{margin-left:auto;display:flex;gap:12px;align-items:center}
+  nav a{font-size:14px;text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:8px}
+  nav a.cta{background:var(--accent);color:white;font-weight:600}
+  .hero{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;padding:28px 0}
+  .hero .left h1{font-size:28px;margin:0 0 8px 0}
+  .hero p.lead{color:var(--muted);margin:0 0 14px 0}
+  .hero .actions{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block}
+  .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(230,165,0,0.14)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+  .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 6px 20px rgba(17,17,17,0.06);display:flex;flex-direction:column}
+  .card img{width:100%;height:200px;object-fit:cover;display:block}
+  .card .pad{padding:12px}
+  .pill{display:inline-block;background:#f6f0e1;color:#7a5d00;padding:6px 8px;border-radius:999px;font-size:12px;margin-right:8px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;align-items:stretch;}
+  .amen{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.03)}
+  .amen ul{margin:8px 0 0 0;padding-left:18px;color:var(--muted)}
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+  .gallery img{width:100%;height:86px;object-fit:cover;border-radius:8px;cursor:pointer}
+  footer{margin-top:28px;padding:28px 0;color:var(--muted)}
+  .booking{background:linear-gradient(180deg,#fffef8,#fff8ee);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+  .form-row{display:flex;gap:10px}
+  input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #eee;font-size:14px}
+  .small{font-size:13px;color:var(--muted)}
+  .reviews{display:flex;flex-direction:column;gap:10px}
+  .review{background:linear-gradient(180deg,#ffffff,#fffdf7);padding:12px;border-radius:10px;box-shadow:0 6px 12px rgba(0,0,0,0.03)}
+  .faq .q{cursor:pointer;padding:10px;border-radius:8px;background:var(--card);margin-bottom:8px;border:1px solid #f0e9dd}
+  /* responsive */
+  @media (max-width:900px){
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .gallery{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:1fr}
+    nav{display:none}
+  }
+  @media (max-width:640px){
+    .cards{grid-template-columns:1fr}
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    .brand{gap:8px}
+    .hero .left h1{font-size:22px}
+    .logo{width:44px;height:44px}
+  }
+
+/* New animations & hover */
+.card {
+  transition: all .3s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity:0;
+  transform: translateY(15px);
+  transition: all .6s ease;
+}
+.fade-in.appear {
+  opacity:1;
+  transform:none;
+}
+
+/* Sticky bottom CTA mobile */
+#stickyCTA {
+  display:none;
+  position:fixed;
+  left:0; right:0; bottom:0;
+  background:linear-gradient(90deg,var(--accent),#ffca66);
+  padding:14px;
+  color:#fff;
+  text-align:center;
+  font-weight:700;
+  z-index:9999;
+}
+#stickyCTA a {
+  color:white;
+  font-weight:700;
+}
+
+/* Show on mobile only */
+@media(max-width:900px){
+  .hamburger { display:block !important; }
+  nav { display:none !important; }
+  #stickyCTA { display:block; }
+}
+
+
+/* Premium Upgrades */
+
+/* Glass Navbar */
+header {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 250, 240, 0.75);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Hero with gradient background + soft shapes */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #fff8e6, #ffe3b8);
+  padding: 50px 24px;
+  border-radius: 22px;
+  overflow: hidden;
+}
+.hero::before {
+  content:"";
+  position:absolute;
+  top:-40px; left:-40px;
+  width:180px; height:180px;
+  background: rgba(255,255,255,0.5);
+  border-radius:50%;
+  filter: blur(40px);
+}
+.hero::after {
+  content:"";
+  position:absolute;
+  bottom:-60px; right:-40px;
+  width:220px; height:220px;
+  background: rgba(255,255,255,0.35);
+  border-radius:50%;
+  filter: blur(50px);
+}
+
+/* Better buttons */
+.btn {
+  box-shadow: 0 4px 14px rgba(230,165,0,0.25);
+  transition: 0.25s ease;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(230,165,0,0.35);
+}
+.btn.ghost:hover {
+  background: rgba(255,210,110,0.15);
+}
+
+/* Rounded section wrappers */
+section {
+  background: #fffdf8;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 28px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+}
+
+/* Stylish section headers */
+h2, h3 {
+  position: relative;
+}
+h3::after, h2::after {
+  content:"";
+  position:absolute;
+  left:0; bottom:-6px;
+  width:50px;
+  height:4px;
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* Improved gallery */
+.gallery img {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+}
+
+/* Improve footer */
+footer {
+  background: #fff7e1;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+
+/* Masonry Gallery */
+.masonry-gallery{
+  column-count:3;
+  column-gap:14px;
+  padding:10px;
+}
+.masonry-gallery img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:14px;
+  break-inside:avoid;
+  transition:all .3s ease;
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+}
+.masonry-gallery img:hover{
+  transform:scale(1.04);
+  box-shadow:0 12px 26px rgba(0,0,0,0.20);
+}
+@media(max-width:900px){
+  .masonry-gallery{column-count:2;}
+}
+@media(max-width:600px){
+  .masonry-gallery{column-count:1;}
+}
+
+/* Tabs */
+.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.tab-btn { padding:8px 12px; border-radius:999px; background:transparent; border:1px solid rgba(0,0,0,0.05); cursor:pointer; font-weight:600; }
+.tab-btn.active { background:var(--accent); color:#fff; }
+
+
+/* Map thumbnail overlay on PG card image */
+.card { position: relative; overflow: visible; }
+.map-thumb {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 120px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+  border: 2px solid rgba(255,255,255,0.9);
+  background: #fff;
+  z-index: 10;
+}
+.map-thumb iframe { width:100%; height:100%; border:0; display:block; }
+.map-thumb a { display:block; width:100%; height:100%; text-indent:-9999px; }
+/* hide by default until JS sets src */
+.map-thumb.hidden { display:none !important; }
+
+/* Pin overlay centered on image */
+.img-pin-wrap { position: relative; display:block; }
+.img-pin-wrap .map-pin-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  display:flex;align-items:center;justify-content:center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75));
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  cursor: pointer;
+  z-index: 20;
+}
+.img-pin-wrap .map-pin-overlay svg { width:36px;height:36px; }
+.img-pin-wrap .map-pin-overlay .label { position:absolute; bottom:-28px; left:50%; transform:translateX(-50%); background:var(--card); padding:6px 10px; border-radius:12px; font-weight:600; box-shadow:0 6px 16px rgba(0,0,0,0.08); display:none; white-space:nowrap; }
+.img-pin-wrap:hover .map-pin-overlay .label { display:block; }
+
+/* Masonry tweaks done above */
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap" style="display:flex;align-items:center">
+    <div class="brand">
+      <div class="logo">VIP</div>
+      <div>
+        <div style="font-weight:700">VIP PG</div>
+        <div style="font-size:13px;color:var(--muted)">Warm. Clean. Secure.</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#amenities">Amenities</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact" class="cta">Book Now</a>
+    </nav>
+<div style="margin-left:12px">
+  </div>
+
+<div class="hamburger" onclick="toggleMenu()" style="margin-left:auto;display:none;cursor:pointer;">
+  <div style="width:24px;height:3px;background:#333;margin:5px 0;border-radius:3px"></div>
+  <div style="width:24px;height:3px;background:#333;margin:5px 0;border-radius:3px"></div>
+  <div style="width:24px;height:3px;background:#333;margin:5px 0;border-radius:3px"></div>
+</div>
+
+  </div>
+
+<div id="mobileMenu" style="display:none;flex-direction:column;gap:12px;background:#fff;padding:20px;border-bottom:1px solid #eee">
+  <a href="#amenities">Amenities</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#contact">Book Now</a>
+</div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="left">
+      <h1>VIP PG - Warm and Comfort Living</h1>
+      <p class="lead">Rooms suited for students and young professionals. Walking distance to colleges and offices, and excellent public transport.</p>
+      <div class="actions">
+        <a class="btn" href="#rooms">See PGs</a>
+        <a class="btn ghost" href="#amenities">View Amenities</a>
+      </div>
+      <div style="margin-top:12px" class="small">Phone (owner): <span id="ownerPhone">+91 8777633302</span></div>
+    </div>
+  </section>
+
+
+  <section id="rooms">
+    <h2 style="margin-top:12px">Our PGs</h2>
+    <div class="cards">
+      <!-- VIP PG 2 -->
+      <div class="card">
+        <div class="img-pin-wrap" data-address="22.5585406,88.4888428">
+  <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/VIP_PG_2.png" alt="VIP PG 2 image"/>
+  <div class="map-pin-overlay" role="button" tabindex="0" onclick="openMap('22.5585406,88.4888428')">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C8.686 2 6 4.686 6 8c0 4.418 6 12 6 12s6-7.582 6-12c0-3.314-2.686-6-6-6z" fill="#e83f5b"/><circle cx="12" cy="8" r="2.5" fill="white"/></svg>
+    <div class="label">View on Map</div>
+  </div>
+</div>
+        <div class="pad">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><strong>VIP PG 2</strong><div class="small">Near Business Park • Easy commute</div></div>
+          </div>
+          <p class="small" style="margin-top:10px">Highlights: Professional staff, private lockers, veg-friendly menu, bi-weekly linen change.</p>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <a class="btn" href="#" onclick="openBooking('VIP PG 2','22.5585406,88.4888428')">Book via WhatsApp</a>
+            <a class="btn ghost" href="#" onclick="openMap('22.5585406,88.4888428')">View on map</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIP PG 3 -->
+      <div class="card">
+        <div class="img-pin-wrap" data-address="22.5675819,88.485489">
+  <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/VIP_PG_3.png" alt="VIP PG 3 image"/>
+  <div class="map-pin-overlay" role="button" tabindex="0" onclick="openMap('22.5675819,88.485489')">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C8.686 2 6 4.686 6 8c0 4.418 6 12 6 12s6-7.582 6-12c0-3.314-2.686-6-6-6z" fill="#e83f5b"/><circle cx="12" cy="8" r="2.5" fill="white"/></svg>
+    <div class="label">View on Map</div>
+  </div>
+</div>
+        <div class="pad">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><strong>VIP PG 3</strong><div class="small">Near University • Public transport nearby</div></div>
+          </div>
+          <p class="small" style="margin-top:10px">Highlights: Secure bike parking, working staff, special veg thalis, alternate-day cleaning.</p>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <a class="btn" href="#" onclick="openBooking('VIP PG 3','22.5675819,88.485489')">Book via WhatsApp</a>
+            <a class="btn ghost" href="#" onclick="openMap('22.5675819,88.485489')">View on map</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIP PG 5 -->
+      <div class="card">
+        <div class="img-pin-wrap" data-address="22.5639896,88.4894386">
+  <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/VIP_PG_5.png" alt="VIP PG 5 image"/>
+  <div class="map-pin-overlay" role="button" tabindex="0" onclick="openMap('22.5639896,88.4894386')">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C8.686 2 6 4.686 6 8c0 4.418 6 12 6 12s6-7.582 6-12c0-3.314-2.686-6-6-6z" fill="#e83f5b"/><circle cx="12" cy="8" r="2.5" fill="white"/></svg>
+    <div class="label">View on Map</div>
+  </div>
+</div>
+        <div class="pad">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><strong>VIP PG 5</strong><div class="small">Near Tech College • 5 min walk</div></div>
+          </div>
+          <p class="small" style="margin-top:10px">Highlights: Vegetarian home-cooked food, 24/7 security, alternate-day cleaning, hot water.</p>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <a class="btn" href="#" onclick="openBooking('VIP PG 5','22.5639896,88.4894386')">Book via WhatsApp</a>
+            <a class="btn ghost" href="#" onclick="openMap('22.5639896,88.4894386')">View on map</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="amenities">
+
+    <div class="amen">
+      <h3>Amenities & Details</h3>
+
+      <div class="tabs" role="tablist" aria-label="Amenities tabs">
+        <button class="tab-btn active" data-tab="amen">🛜 Amenities</button>
+        <button class="tab-btn" data-tab="loc">📍 Location Highlights</button>
+        <button class="tab-btn" data-tab="hk">🧼 Housekeeping, Hygiene & Toiletries</button>
+      </div>
+
+      <div id="tab-amen" class="tab-panel">
+        <ul>
+<li>🍽️ <strong>Vegetarian home-style meals:</strong> Freshly prepared veg meals with flexible plans, customizable on request.</li>
+<li>🔒 <strong>24/7 security:</strong> CCTV monitored common areas, secure keyed entry and an on-site manager for assistance.</li>
+<li>🧑‍💼 <strong>Supportive staff:</strong> On-site staff for maintenance, deliveries and general assistance.</li>
+<li>💻 <strong>High-speed internet & study areas:</strong> Reliable WiFi across rooms and quiet study corners.</li>
+<li>🅿️ <strong>Secure parking & storage:</strong> Dedicated bike parking and secure lockers for valuables.</li>
+        </ul>
+      </div>
+
+      <div id="tab-loc" class="tab-panel" style="display:none">
+        <ul>
+          <li>🏫 Just minutes away from major universities and coaching centers – ideal for students.</li>
+          <li>🛒 Markets, grocery stores, and eateries within walking distance.</li>
+          <li>🛍️ Close to shopping malls and entertainment zones for weekend hangouts.</li>
+          <li>🚌 Public transport (bus/auto/metro) easily available for smooth daily commute.</li>
+        </ul>
+      </div>
+
+      <div id="tab-hk" class="tab-panel" style="display:none">
+        <ul>
+          <li>🧹 <strong>Weekly room cleaning</strong> – includes floor mopping, dusting, and trash removal.</li>
+          <li>🚿 <strong>Washroom sanitation</strong> – toilets, sinks, and floors cleaned on a weekly basis.</li>
+          <li>🧺 <strong>Laundry service / Washing machine</strong> – provided or available on a self-use basis.</li>
+          <li>💧 <strong>24x7 water supply</strong> – with both hot (geyser) and cold water access.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    
+  </section>
+
+<section id="fullGallery" class="reveal">
+  <h2>Gallery</h2>
+
+  <!-- Gallery Tabs -->
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-gal="rooms">🛏 Rooms</button>
+    <button class="tab-btn" data-gal="common">🛋 Common Areas</button>
+    <button class="tab-btn" data-gal="wash">🚿 Washrooms</button>
+  </div>
+
+  <!-- ROOMS -->
+  <div id="gal-rooms" class="gal-panel">
+    <div class="masonry-gallery">
+      <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_1.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_4.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_8.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_9.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_10.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_11.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_12.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_13.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_14.JPG" onclick="openLightbox(this.src)">
+    </div>
+  </div>
+
+  <!-- COMMON AREAS -->
+  <div id="gal-common" class="gal-panel" style="display:none">
+    <div class="masonry-gallery">
+      <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_common_hall_6.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_common_hall_7.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_Kitchen_5.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_with_RO_3.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Room_with_locker_2.JPG" onclick="openLightbox(this.src)">
+    </div>
+  </div>
+
+  <!-- WASHROOMS -->
+  <div id="gal-wash" class="gal-panel" style="display:none">
+    <div class="masonry-gallery">
+      <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Washroom_1.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Washroom_2.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Washroom_3.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Washroom_4.JPG" onclick="openLightbox(this.src)">
+    <img loading="lazy" src="https://raw.githubusercontent.com/priyangshu07-FL/vipPG/c984147989f9cd4d85b046585ec8790e2aea2e42/Images_VIP_PG/Washroom_5.JPG" onclick="openLightbox(this.src)">
+    </div>
+  </div>
+</section>
+
+
+  <!-- Reviews removed as requested -->
+
+  <section id="faqs" style="margin-top:18px">
+    <h3>Frequently Asked Questions</h3>
+    <div class="faq">
+      <div class="q" onclick="toggleFaq(this)"><strong>Are meals included?</strong><div class="small">We offer flexible meal plans — you can opt-in for breakfast/lunch/dinner. Vegetarian-focused menu available.</div></div>
+      <div class="q" onclick="toggleFaq(this)"><strong>How often are rooms cleaned?</strong><div class="small">Rooms are cleaned on alternate days. Deep cleaning & linen change options are available weekly/bi-weekly.</div></div>
+      <div class="q" onclick="toggleFaq(this)"><strong>Is there a curfew?</strong><div class="small">No strict curfew. Security is present 24/7 and common-sense rules apply to maintain peace.</div></div>
+    </div>
+  </section>
+
+  <section id="contact" style="margin-top:18px">
+    <h3>Book a room / Contact owner</h3>
+    <div class="booking">
+      <form id="bookingForm" onsubmit="return submitForm(event)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <input id="name" placeholder="Your name" required>
+          <input id="phone" placeholder="Phone number" required>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <input id="movein" type="date" placeholder="Move-in date">
+          <!-- removed duration/tenure per request -->
+          <input id="preferredPG" placeholder="Preferred PG (optional)">
+        </div>
+        <textarea id="message" placeholder="Any specific reqs (e.g. single room, near stairs, food preferences)..." style="margin-top:10px"></textarea>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" type="submit">Send via WhatsApp</button>
+          <a class="btn ghost" href="#" onclick="openPreFilledMail()">Email Owner</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="thanks" style="margin-top:18px">
+    <h3>Thank you for considering our PG</h3>
+    <p class="small">Thank you for considering VIP PG. We hope to make your stay comfortable and safe. If you have any questions or would like a guided visit, reach out using the options below.</p>
+
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:12px">
+      <a class="btn" href="tel:+918777633302">Call</a>
+      <a class="btn" href="https://wa.me/918777633302" target="_blank">WhatsApp</a>
+      <a class="btn ghost" href="mailto:riponmolla681616@gmail.com">Email</a>
+    </div>
+  </section>
+
+  <footer style="margin-top:24px;display:flex;justify-content:space-between;align-items:center">
+    <div class="small">© VIP PG — Made warm & cozy • Images from repository</div>
+    <div><a href="#" class="small">Privacy</a> • <a href="#" class="small">Terms</a></div>
+  </footer>
+
+
+<div id="stickyCTA">
+  Need a room? <a href="#contact">Book Now</a>
+</div>
+
+
+
+
+</main>
+
+<!-- Lightbox modal -->
+<div id="lightbox" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:9999">
+  <img loading="lazy" id="lightboxImg" src="" style="max-width:92%;max-height:86%;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,0.6)" onclick="closeLightbox()"/>
+</div>
+
+<script>
+  // OWNER PHONE - international format without '+'
+  const OWNER_PHONE = '918777633302';
+  document.getElementById('ownerPhone').innerText = '+' + '918777633302';
+
+  function openLightbox(src){ document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').style.display = 'flex'; }
+  function closeLightbox(){ document.getElementById('lightbox').style.display = 'none'; }
+
+  // open map (same address used for overlay and view-on-map)
+  function openMap(addr){
+    const q = encodeURIComponent(addr);
+    const url = 'https://www.google.com/maps/search/?api=1&query=' + q;
+    window.open(url,'_blank');
+  }
+
+  function openBooking(pgName, address){
+    // simplified prompt flow and then open whatsapp with move-in date note (no duration)
+    const name = prompt('Your name (for message)', '');
+    const phone = prompt('Your contact number', '');
+    const move = prompt('Move-in date (optional, YYYY-MM-DD)', '');
+    if(!OWNER_PHONE || OWNER_PHONE === '0000000000'){ alert('Owner phone not set in the page.'); return; }
+    const text = `Hi, I am interested in booking a room at ${pgName}.\nName: ${name || '[name]'}\nContact: ${phone || '[phone]'}\nMove-in: ${move || '[date]'}\nPlease share availability and rent.`;
+    const url = 'https://wa.me/' + OWNER_PHONE + '?text=' + encodeURIComponent(text);
+    window.open(url,'_blank');
+  }
+
+  function submitForm(e){
+    e.preventDefault();
+    if(!OWNER_PHONE || OWNER_PHONE === '0000000000'){ alert('Owner phone not set in the page.'); return false; }
+    const n = document.getElementById('name').value;
+    const p = document.getElementById('phone').value;
+    const m = document.getElementById('message').value;
+    const mv = document.getElementById('movein').value;
+    const pg = document.getElementById('preferredPG').value || '[not specified]';
+    const text = `Hi, I want to book a room.\nName: ${n}\nPhone: ${p}\nMove-in: ${mv || '[date]'}\nPreferred PG: ${pg}\nReqs: ${m || '[none]'}`;
+    const url = 'https://wa.me/' + OWNER_PHONE + '?text=' + encodeURIComponent(text);
+    window.open(url,'_blank');
+    return false;
+  }
+
+  function openPreFilledMail(){
+    const n = document.getElementById('name').value || '[name]';
+    const p = document.getElementById('phone').value || '[phone]';
+    const subj = encodeURIComponent('Booking enquiry for VIP PG');
+    const body = encodeURIComponent(`Hi,%0D%0AI am ${n}%0D%0APhone: ${p}%0D%0AI'd like to enquire about room availability.%0D%0A`);
+    window.location.href = 'mailto:riponmolla681616@gmail.com?subject=' + subj + '&body=' + body;
+  }
+
+  function toggleFaq(el){
+    const body = el.querySelector('.small');
+    if(!body) return;
+    if(body.style.display === 'block'){ body.style.display = 'none'; el.style.background = ''; }
+    else{ body.style.display = 'block'; el.style.background = 'linear-gradient(180deg,#fffef8,#fff8ee)'; }
+  }
+
+  // Init: hide faq details
+  document.querySelectorAll('.faq .small').forEach(s=> s.style.display='none');
+
+  // Lightbox zoom effect
+  const lb = document.getElementById('lightboxImg');
+  if(lb){
+    lb.style.transition = 'transform .3s ease';
+    lb.addEventListener('click', ()=>{ lb.style.transform = 'scale(1.03)' });
+    lb.addEventListener('mouseleave', ()=>{ lb.style.transform = 'scale(1)' });
+  }
+</script>
+
+<script>
+// Hamburger menu toggle
+function toggleMenu(){
+  const m = document.getElementById('mobileMenu');
+  m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// Intersection observer animations
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('appear');
+      observer.unobserve(e.target);
+    }
+  })
+},{threshold:0.2});
+
+// attach fade-in class
+document.querySelectorAll('.card, section, .hero').forEach(el=>{
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+
+// Tabs logic for amenities
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const tab = this.getAttribute('data-tab');
+    document.getElementById('tab-amen').style.display = tab === 'amen' ? '' : 'none';
+    document.getElementById('tab-loc').style.display = tab === 'loc' ? '' : 'none';
+    document.getElementById('tab-hk').style.display = tab === 'hk' ? '' : 'none';
+  });
+});
+
+</script>
+
+<script>
+document.querySelectorAll('[data-gal]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    // remove active state from all gallery tabs
+    document.querySelectorAll('[data-gal]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // hide all gallery panels
+    document.querySelectorAll('.gal-panel').forEach(p=>{
+      p.style.display = 'none';
+    });
+
+    // show selected panel
+    const target = document.getElementById('gal-' + btn.dataset.gal);
+    if(target) target.style.display = 'block';
+  });
+});
+</script>
+
+</body>
+</html>
